@@ -1,7 +1,7 @@
 {
   "name": "remotestore",
-  "version": "0.0.2",
-  "description": "Disk or server based clustering of objects supporting the Web Storage API",
+  "version": "0.0.4",
+  "description": "RESTful wrapper for remote servers exposing the Web Storage API",
   "engines": {},
   "license": "MIT",
   "private": false,

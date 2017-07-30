@@ -16,7 +16,7 @@
 		}
 	}
 	RemoteStore.prototype.apply = async function(name,args=[]) {
-		const response = await fetch(this.location+"/"+name,{method:"POST",body:JSON.stringify(args)});
+		const response = await fetch(this.location+"/"+name,{method:"POST",body:JSON.stringify(args)}).catch((e) => { return {status:e.code}; });
 		if(response.status!==200) {
 			throw new Error("Server return non-200 status " + response.status);
 		}
@@ -27,7 +27,10 @@
 		}
 	}
 	RemoteStore.prototype.clear = async function() {
-		const response = await fetch("clear",{method:"POST"});
+		const response = await fetch("clear",{method:"POST"}).catch((e) => { return {status:e.code}; });
+		if(response.status!==200) {
+			throw new Error("Server return non-200 status " + response.status);
+		}
 		return response.json();
 	}
 	RemoteStore.prototype.close = async function() {
@@ -36,12 +39,11 @@
 	RemoteStore.prototype.count = async function() {
 		return await this.apply("count");
 	}
-	// compress should only be used when offline
 	RemoteStore.prototype.compress = async function(keysOnly) {
 		return await this.apply("compress");
 	}
 	RemoteStore.prototype.delete = async function(id) {
-		const response = await fetch(this.location+"/"+id,{method:"DELETE"});
+		const response = await fetch(this.location+"/"+id,{method:"DELETE"}).catch((e) => { return {status:e.code}; });
 		if(response.status!==200) {
 			throw new Error("Server return non-200 status " + response.status);
 		}
@@ -49,7 +51,9 @@
 	RemoteStore.prototype.removeItem = RemoteStore.prototype.delete;
 	RemoteStore.prototype.flush = async function(id) {
 		if(this.cache) {
-			if(id) {
+			if(typeof(this.cache)!=="object") {
+				this.cache = {};
+			} else if(id) {
 				delete this.cache[id];
 			} else {
 				this.cache = {};
@@ -57,13 +61,16 @@
 		}
 	}
 	RemoteStore.prototype.get = async function(id) {
-		const hit = !this.cache || this.cache[id];
+		const hit = (this.cache ? this.cache[id] : null);
 		let result;
 		if(hit) {
 			hit.hits++;
 			result = hit.value;
-		} else {
-			const response = await fetch(this.location+"/"+id,{method:"GET"});
+		} else if(this.cache) {
+			if(typeof(this.cache)!=="object") {
+				this.cache = {};
+			}
+			const response = await fetch(this.location+"/"+id,{method:"GET"}).catch((e) => { return {status:e.code}; });
 			if(response.status!==200) {
 				throw new Error("Server return non-200 status " + response.status);
 			}
@@ -80,9 +87,9 @@
 		return true;
 	}
 	RemoteStore.prototype.set = async function(id,data) {
-		const response = await fetch(this.location+"/"+id,{method:"PUT",body:JSON.stringify(data)});
+		const response = await fetch(this.location+"/"+id,{method:"PUT",body:JSON.stringify(data)}).catch((e) => { return {status:e.code}; });
 		if(response.status!==200) {
-			throw new Error("Server return non-200 status " + response.status);
+			throw new Error("Server returned non-200 status " + response.status);
 		}
 	}
 	RemoteStore.prototype.setItem = RemoteStore.prototype.set;
