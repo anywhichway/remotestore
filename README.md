@@ -30,6 +30,8 @@ const store = new RemoteStore("http://localhost:3000");
 
 # Release History (reverse chronological order)
 
+v0.0.5 2017-07-30 ALPHA Fixed issue where `getItem` did not work if caching was off.
+
 v0.0.4 2017-07-30 ALPHA Added error handling for fetch
 
 v0.0.3 2017-07-30 ALPHA Adjusted caching so it could be turned off and on dynamically

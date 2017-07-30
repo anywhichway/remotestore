@@ -66,8 +66,8 @@
 		if(hit) {
 			hit.hits++;
 			result = hit.value;
-		} else if(this.cache) {
-			if(typeof(this.cache)!=="object") {
+		} else {
+			if(this.cache && typeof(this.cache)!=="object") {
 				this.cache = {};
 			}
 			const response = await fetch(this.location+"/"+id,{method:"GET"}).catch((e) => { return {status:e.code}; });
@@ -75,7 +75,9 @@
 				throw new Error("Server return non-200 status " + response.status);
 			}
 			result = await response.json();
-			this.cache[id] = {value:result,hits:0};
+			if(this.cache) {
+				this.cache[id] = {value:result,hits:0};
+			}
 		}
 		return result;
 	}
