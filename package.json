@@ -1,0 +1,30 @@
+{
+  "name": "remotestore",
+  "version": "0.0.2",
+  "description": "Disk or server based clustering of objects supporting the Web Storage API",
+  "engines": {},
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "test": "mocha test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anywhichway/remotestore.git"
+  },
+  "keywords": [
+    "filestore, database, key-value, localstorage, webstorage, storage"
+  ],
+  "author": "Simon Y. Blackwell <syblackwell@anywhichway.com> (http://www.github.com/anywhichway)",
+  "bugs": {
+    "url": "https://github.com/anywhichway/remotestore/issues"
+  },
+  "homepage": "https://github.com/anywhichway/remotestore#readme",
+  "dependencies": {
+    "node-fetch": "^1.7.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2"
+  }
+}
