@@ -33,17 +33,11 @@
 		}
 		return response.json();
 	}
-	RemoteStore.prototype.close = async function() {
-		return true;
-	}
 	RemoteStore.prototype.count = async function() {
 		return await this.apply("count");
 	}
-	RemoteStore.prototype.compress = async function(keysOnly) {
-		return await this.apply("compress");
-	}
 	RemoteStore.prototype.delete = async function(id) {
-		const response = await fetch(this.location+"/"+id,{method:"DELETE"}).catch((e) => { return {status:e.code}; });
+		const response = await fetch(this.location+"/"+id,{method:"DELETE"}).catch((e) => { return {status:e.code}; }); // ctach of await doe snot work, use block
 		if(response.status!==200) {
 			throw new Error("Server return non-200 status " + response.status);
 		}
@@ -84,9 +78,6 @@
 	RemoteStore.prototype.getItem = RemoteStore.prototype.get;
 	RemoteStore.prototype.key = async function(number) {
 		return await this.apply("key",[number]);
-	}
-	RemoteStore.prototype.open = async function() {
-		return true;
 	}
 	RemoteStore.prototype.set = async function(id,data) {
 		const response = await fetch(this.location+"/"+id,{method:"PUT",body:JSON.stringify(data)}).catch((e) => { return {status:e.code}; });
