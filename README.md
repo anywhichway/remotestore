@@ -5,9 +5,9 @@ RESTful wrapper for remote servers exposing the Web Storage API
 
 `npm install remotestore`
 
-If you do not already have a RESTful server supporting the Web Storage API, i.e. `DELETE`, `GET`, `PUT`, and `POST` for `count`, `key` method calls then install `storageserver` with `npm install storageserver`.
+If you do not already have a RESTful server supporting the Web Storage API, i.e. `DELETE`, `GET`, `PUT`, and `POST` for `count`, `key` method calls then install `storeserver` with `npm install storeserver`.
 
-If you use `storageserver` it can download `remotestore.js` to you, so your base html file will look something like this:
+If you use `storeserver` it can download `remotestore.js` to you, so your base html file will look something like this:
 
 ```
 &lt;html&gt;
@@ -29,6 +29,8 @@ const store = new RemoteStore("http://localhost:3000");
 
 
 # Release History (reverse chronological order)
+
+v0.0.8 2017-08-06 ALPHA Corrected documentation typos.
 
 v0.0.7 2017-08-06 ALPHA Improved error handling.
 
