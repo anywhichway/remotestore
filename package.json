@@ -1,6 +1,6 @@
 {
   "name": "remotestore",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "RESTful wrapper for remote servers exposing the Web Storage API",
   "engines": {},
   "license": "MIT",

@@ -30,6 +30,8 @@ const store = new RemoteStore("http://localhost:3000");
 
 # Release History (reverse chronological order)
 
+v0.0.7 2017-08-06 ALPHA Improved error handling.
+
 v0.0.6 2017-08-01 ALPHA Removed dummy calls that are not part of Web Storage API, e.g. `open` and `close`.
 
 v0.0.5 2017-07-30 ALPHA Fixed issue where `getItem` did not work if caching was off.

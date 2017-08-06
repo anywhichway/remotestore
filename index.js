@@ -16,7 +16,7 @@
 		}
 	}
 	RemoteStore.prototype.apply = async function(name,args=[]) {
-		const response = await fetch(this.location+"/"+name,{method:"POST",body:JSON.stringify(args)}).catch((e) => { return {status:e.code}; });
+		const response = await fetch(this.location+"/"+name,{method:"POST",body:JSON.stringify(args)});
 		if(response.status!==200) {
 			throw new Error("Server return non-200 status " + response.status);
 		}
@@ -27,7 +27,7 @@
 		}
 	}
 	RemoteStore.prototype.clear = async function() {
-		const response = await fetch("clear",{method:"POST"}).catch((e) => { return {status:e.code}; });
+		const response = await fetch("clear",{method:"POST"});
 		if(response.status!==200) {
 			throw new Error("Server return non-200 status " + response.status);
 		}
@@ -37,7 +37,7 @@
 		return await this.apply("count");
 	}
 	RemoteStore.prototype.delete = async function(id) {
-		const response = await fetch(this.location+"/"+id,{method:"DELETE"}).catch((e) => { return {status:e.code}; }); // ctach of await doe snot work, use block
+		const response = await fetch(this.location+"/"+id,{method:"DELETE"});
 		if(response.status!==200) {
 			throw new Error("Server return non-200 status " + response.status);
 		}
@@ -64,7 +64,7 @@
 			if(this.cache && typeof(this.cache)!=="object") {
 				this.cache = {};
 			}
-			const response = await fetch(this.location+"/"+id,{method:"GET"}).catch((e) => { return {status:e.code}; });
+			const response = await fetch(this.location+"/"+id,{method:"GET"});
 			if(response.status!==200) {
 				throw new Error("Server return non-200 status " + response.status);
 			}
@@ -80,7 +80,7 @@
 		return await this.apply("key",[number]);
 	}
 	RemoteStore.prototype.set = async function(id,data) {
-		const response = await fetch(this.location+"/"+id,{method:"PUT",body:JSON.stringify(data)}).catch((e) => { return {status:e.code}; });
+		const response = await fetch(this.location+"/"+id,{method:"PUT",body:JSON.stringify(data)});
 		if(response.status!==200) {
 			throw new Error("Server returned non-200 status " + response.status);
 		}
